@@ -1,3 +1,6 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 body {
     font-family: Arial, sans-serif;
     background-color: #D8BFD8; /* Digital Lavender */
@@ -41,3 +44,5 @@ body {
   button:hover {
     background-color: #7A5DC7;
   }
+
+  
