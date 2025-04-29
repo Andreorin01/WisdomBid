@@ -9,7 +9,7 @@ WisdomBid is a web application where users can seek advice and others can provid
    - Posts a question for free.
    - Selects the "Best Answer" from the responses.
 2. **Advice Giver**:  
-   - Pays €1 to submit an answer to a question.
+   - Pays 5 RON to submit an answer to a question.
    - Competes to have their answer selected as the "Best Answer."
 3. **Admin**:  
    - Oversees payments and moderates the platform.
