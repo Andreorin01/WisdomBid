@@ -1,14 +1,14 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from src.routes import auth
+from src.db import connection
+
+# Try to import payment router if it exists
 try:
     from src.routes import payment
     payment_router_exists = True
 except ImportError:
     payment_router_exists = False
-
-# Ensure DB and models are initialized
-from src.db import connection
 
 app = FastAPI()
 
