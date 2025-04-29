@@ -18,7 +18,7 @@ WisdomBid is a web application where users can seek advice and others can provid
 1. Advice Seekers post questions.
 2. Advice Givers pay 5 RON to submit their answers.
 3. The Advice Seeker selects the "Best Answer."
-4. The selected Advice Giver wins 50% of the total earnings from all 5 RON submissions for that question.
+4. The selected Advice Giver wins 30% of the total earnings from all 5 RON submissions for that question.
 
 ### Payments
 - **Payment Gateway**: Stripe API is used for secure payment processing.
