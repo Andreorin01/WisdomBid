@@ -1,4 +1,7 @@
 backend:
+    environment:
+        DATABASE_URL: "postgresql://admin:npg_egFvcf46wySi@ep-small-bread-a24yvytl-pooler.eu-central-1.aws.neon.tech/WisdomBid?sslmode=require"
+        SECRET_KEY: "w9X3vJ8k1z2YpLq7mN5oT6rP8s9vX4wZ7q1tR2uT3y8oLk9m"
     functions:
         - entry: app.py
           handler: app
