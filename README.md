@@ -22,7 +22,7 @@ WisdomBid is a web application where users can seek advice and others can provid
 
 ### Payments
 - **Payment Gateway**: Stripe API is used for secure payment processing.
-- Automatically tracks total payments and distributes 50% to the selected winner.
+- Automatically tracks total payments and distributes 30% to the selected winner.
 
 ## Tech Stack
 
