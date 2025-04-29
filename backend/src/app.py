@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from src.routes import auth
-from src.db import connection
+# from src.db import connection  # Uncomment if the connection object is needed elsewhere
 
 # Try to import payment router if it exists
 try:
@@ -25,6 +25,7 @@ app.add_middleware(
 app.include_router(auth.router, prefix="/auth")
 if payment_router_exists:
     app.include_router(payment.router, prefix="/payment")
+
 
 @app.get("/")
 def read_root():
