@@ -1,0 +1,29 @@
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    role VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE questions (
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    description TEXT NOT NULL,
+    seeker_id INTEGER NOT NULL REFERENCES users(id)
+);
+
+CREATE TABLE answers (
+    id SERIAL PRIMARY KEY,
+    content TEXT NOT NULL,
+    question_id INTEGER NOT NULL REFERENCES questions(id),
+    giver_id INTEGER NOT NULL REFERENCES users(id),
+    is_best_answer BOOLEAN DEFAULT FALSE
+);
+
+CREATE TABLE payments (
+    id SERIAL PRIMARY KEY,
+    amount NUMERIC(10, 2) NOT NULL,
+    currency VARCHAR(10) DEFAULT 'EUR',
+    giver_id INTEGER NOT NULL REFERENCES users(id),
+    question_id INTEGER NOT NULL REFERENCES questions(id)
+);

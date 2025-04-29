@@ -1,11 +1,30 @@
 from fastapi import FastAPI
-from src.routes import auth, payment
+from fastapi.middleware.cors import CORSMiddleware
+from src.routes import auth
+try:
+    from src.routes import payment
+    payment_router_exists = True
+except ImportError:
+    payment_router_exists = False
+
+# Ensure DB and models are initialized
+from src.db import connection
 
 app = FastAPI()
 
-# Include routes
+# CORS configuration (adjust origins for production)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Change to your frontend URL in production!
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Include routers
 app.include_router(auth.router, prefix="/auth")
-app.include_router(payment.router, prefix="/payment")
+if payment_router_exists:
+    app.include_router(payment.router, prefix="/payment")
 
 @app.get("/")
 def read_root():
