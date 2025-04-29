@@ -1,23 +1,16 @@
-import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-import Home from "./Home";
-import AdvicePage from "./AdvicePage";
+import Signup from "./components/Signup";
+import Login from "./components/Login";
+import Protected from "./components/Protected";
 
 const App = () => {
   return (
     <Router>
-      <div className="flex flex-col min-h-screen">
-        <Header />
-        <main className="flex-grow">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/advice" element={<AdvicePage />} />
-          </Routes>
-        </main>
-        <Footer />
-      </div>
+      <Routes>
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/protected" element={<Protected />} />
+      </Routes>
     </Router>
   );
 };
