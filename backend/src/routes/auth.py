@@ -5,6 +5,8 @@ from src.db.connection import get_db
 from src.models.user import User
 from sqlalchemy.orm import Session
 from jose import jwt
+from src.services.payment_service import create_payment_intent
+
 
 SECRET_KEY = "your_secret_key"
 ALGORITHM = "HS256"
@@ -47,3 +49,12 @@ def protected_route(token: str = Depends(get_db)):
         return {"message": f"Hello, {payload['email']}"}
     except jwt.JWTError:
         raise HTTPException(status_code=401, detail="Invalid token")
+
+
+@router.post("/create-payment-intent")
+def create_payment(amount: int):
+    try:
+        intent = create_payment_intent(amount)
+        return {"client_secret": intent["client_secret"]}
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
