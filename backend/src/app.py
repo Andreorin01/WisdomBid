@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from src.routes import auth
-# from src.db import connection  # Uncomment if the connection object is needed elsewhere
+from src.db import connection  # Uncomment if the connection object is needed elsewhere
 
 # Try to import payment router if it exists
 try:
