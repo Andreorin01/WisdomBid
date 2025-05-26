@@ -1,1 +1,1 @@
-web: gunicorn -k uvicorn.workers.UvicornWorker backend.src.app:app
+web: PYTHONPATH=backend gunicorn -k uvicorn.workers.UvicornWorker src.app:app
