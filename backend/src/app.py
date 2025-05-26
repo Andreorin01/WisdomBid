@@ -29,4 +29,4 @@ if payment_router_exists:
 
 @app.get("/")
 def read_root():
-    return {"message": "Welcome to WisdomBid Backend"}
+    return {"message": "Welcome to WisdomBid Backend System"}
