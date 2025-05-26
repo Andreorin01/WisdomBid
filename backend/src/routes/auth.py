@@ -42,8 +42,12 @@ def login(user: UserLogin, db: Session = Depends(get_db)):
     token = jwt.encode({"email": user.email}, SECRET_KEY, algorithm=ALGORITHM)
     return {"access_token": token}
 
+from fastapi.security import OAuth2PasswordBearer
+
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+
 @router.get("/protected")
-def protected_route(token: str = Depends(get_db)):
+def protected_route(token: str = Depends(oauth2_scheme)):
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         return {"message": f"Hello, {payload['email']}"}
