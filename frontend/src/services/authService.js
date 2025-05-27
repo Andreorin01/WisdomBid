@@ -1,6 +1,14 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8000/auth"; // Replace with your backend URL if different
+//const API_URL = "http://localhost:8000/auth"; // Replace with your backend URL if different
+const API_URL = process.env.REACT_APP_API_URL; // For Create React App
+
+// Example fetch:
+fetch(`${API_URL}/auth/login`, {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ email, password, role }),
+});
 
 // Signup API call
 export const signup = async (email, password, role) => {
