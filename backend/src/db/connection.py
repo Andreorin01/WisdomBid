@@ -8,7 +8,12 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Get the database URL from the environment variables
-DATABASE_URL = os.getenv("DATABASE_URL")
+#DATABASE_URL = os.getenv("DATABASE_URL")
+
+raw_db_url = os.getenv("DATABASE_URL")
+if raw_db_url and raw_db_url.startswith("postgres://"):
+    raw_db_url = raw_db_url.replace("postgres://", "postgresql://", 1)
+DATABASE_URL = raw_db_url
 
 # Create the SQLAlchemy engine
 engine = create_engine(DATABASE_URL)
