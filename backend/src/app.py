@@ -1,18 +1,9 @@
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 import os
 
-app = FastAPI()
-
-# Serve React static files
-app.mount("/static", StaticFiles(directory="../frontend/build/static"), name="static")
-
-@app.get("/")
-def serve_react_index():
-    return FileResponse("../frontend/build/index.html")
-
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
 from src.routes import auth
 from src.db import connection  # Uncomment if the connection object is needed elsewhere
 
@@ -24,6 +15,14 @@ except ImportError:
     payment_router_exists = False
 
 app = FastAPI()
+
+# Serve React static files
+frontend_build_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../frontend/build"))
+app.mount("/static", StaticFiles(directory=os.path.join(frontend_build_path, "static")), name="static")
+
+@app.get("/")
+def serve_react_index():
+    return FileResponse(os.path.join(frontend_build_path, "index.html"))
 
 # CORS configuration (adjust origins for production)
 app.add_middleware(
@@ -38,8 +37,3 @@ app.add_middleware(
 app.include_router(auth.router, prefix="/auth")
 if payment_router_exists:
     app.include_router(payment.router, prefix="/payment")
-
-
-@app.get("/")
-def read_root():
-    return {"message": "Welcome to WisdomBid Backend System"}
