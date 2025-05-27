@@ -20,8 +20,8 @@ app = FastAPI()
 frontend_build_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../frontend/build"))
 app.mount("/static", StaticFiles(directory=os.path.join(frontend_build_path, "static")), name="static")
 
-@app.get("/")
-def serve_react_index():
+@app.get("/{full_path:path}")
+def serve_react_app(full_path: str):
     return FileResponse(os.path.join(frontend_build_path, "index.html"))
 
 # CORS configuration (adjust origins for production)
