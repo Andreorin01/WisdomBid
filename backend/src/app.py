@@ -1,3 +1,16 @@
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
+import os
+
+app = FastAPI()
+
+# Serve React static files
+app.mount("/static", StaticFiles(directory="../frontend/build/static"), name="static")
+
+@app.get("/")
+def serve_react_index():
+    return FileResponse("../frontend/build/index.html")
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from src.routes import auth
