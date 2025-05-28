@@ -3,10 +3,6 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from dotenv import load_dotenv
-from src.models.user import User
-from src.models.question import Question
-from src.models.answer import Answer
-from src.models.payment import Payment
 
 Base = declarative_base()
 
@@ -22,6 +18,8 @@ if raw_db_url and raw_db_url.startswith("postgres://"):
 DATABASE_URL = raw_db_url
 
 # Create the SQLAlchemy engine
+if DATABASE_URL is None:
+    raise ValueError("DATABASE_URL environment variable is not set")
 engine = create_engine(DATABASE_URL)
 
 # Create a session factory
