@@ -11,21 +11,28 @@ from src.models.user import User
 from src.services.payment_service import create_payment_intent
 
 SECRET_KEY = os.getenv("SECRET_KEY")
+if not isinstance(SECRET_KEY, str) or not SECRET_KEY:
+    raise RuntimeError("SECRET_KEY environment variable is not set or is not a string")
 ALGORITHM = "HS256"
 
 router = APIRouter()
 
 # Pydantic models
+
+
 class UserCreate(BaseModel):
     email: str
     password: str
     role: str
 
+
 class UserLogin(BaseModel):
     email: str
     password: str
 
+
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
+
 
 @router.post("/signup")
 def signup(user: UserCreate, db: Session = Depends(get_db)):
@@ -37,15 +44,23 @@ def signup(user: UserCreate, db: Session = Depends(get_db)):
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
-    return {"message": "User created successfully", "user": {"email": new_user.email, "role": new_user.role}}
+    return {
+        "message": "User created successfully",
+        "user": {
+            "email": new_user.email,
+            "role": new_user.role
+        }
+    }
+
 
 @router.post("/login")
 def login(user: UserLogin, db: Session = Depends(get_db)):
     db_user = db.query(User).filter(User.email == user.email).first()
-    if not db_user or not bcrypt.verify(user.password, db_user.password):
+    if not db_user or not bcrypt.verify(user.password, db_user.password.value):
         raise HTTPException(status_code=401, detail="Invalid credentials")
     token = jwt.encode({"email": user.email}, SECRET_KEY, algorithm=ALGORITHM)
     return {"access_token": token, "token_type": "bearer"}
+
 
 @router.get("/protected")
 def protected_route(token: str = Depends(oauth2_scheme)):
@@ -54,6 +69,7 @@ def protected_route(token: str = Depends(oauth2_scheme)):
         return {"message": f"Hello, {payload['email']}"}
     except JWTError:
         raise HTTPException(status_code=401, detail="Invalid token")
+
 
 @router.post("/create-payment-intent")
 def create_payment(amount: int):

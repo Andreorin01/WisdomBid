@@ -3,6 +3,12 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from dotenv import load_dotenv
+from src.models.user import User
+from src.models.question import Question
+from src.models.answer import Answer
+from src.models.payment import Payment
+
+Base = declarative_base()
 
 # Load environment variables from .env file
 load_dotenv()
@@ -21,8 +27,6 @@ engine = create_engine(DATABASE_URL)
 # Create a session factory
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-# Base class for models
-Base = declarative_base()
 
 # Dependency to get a database session
 def get_db():
@@ -32,11 +36,8 @@ def get_db():
     finally:
         db.close()
 
-# Import models to ensure they are registered with SQLAlchemy
-from src.models.user import User
-from src.models.question import Question
-from src.models.answer import Answer
-from src.models.payment import Payment
 
+# Create all tables in the database
+Base.metadata.create_all(bind=engine)
 # Create all tables in the database
 Base.metadata.create_all(bind=engine)

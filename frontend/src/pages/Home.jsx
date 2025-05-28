@@ -1,6 +1,6 @@
 import React from "react";
 import Button from '@mui/material/Button';
-
+import React, { useState, useEffect } from "react";
 function MyComponent() {
   return (
     <Button variant="contained" color="primary">
@@ -9,7 +9,7 @@ function MyComponent() {
   );
 }
 
-export default MyComponent;
+// export default MyComponent;
 
 const Home = () => {
   return (
