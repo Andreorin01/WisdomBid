@@ -21,7 +21,16 @@ const Home = () => {
     </div>
   );
 };
+import { signup, login } from "../services/authService";
 
+// Example usage:
+signup({ email, password, role })
+  .then(data => { /* handle success */ })
+  .catch(err => { /* handle error */ });
+
+login({ email, password })
+  .then(data => { /* handle success */ })
+  .catch(err => { /* handle error */ });
 <form onSubmit={handleSubmit}>
   <input
     type="email"

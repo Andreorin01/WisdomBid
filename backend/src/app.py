@@ -38,13 +38,3 @@ app.include_router(auth.router, prefix="/auth")
 if payment_router_exists:
     app.include_router(payment.router, prefix="/payment")
 
-import { signup, login } from "../services/authService";
-
-// Example usage:
-signup({ email, password, role })
-  .then(data => { /* handle success */ })
-  .catch(err => { /* handle error */ });
-
-login({ email, password })
-  .then(data => { /* handle success */ })
-  .catch(err => { /* handle error */ });
